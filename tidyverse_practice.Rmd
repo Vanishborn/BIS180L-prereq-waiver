@@ -1,0 +1,19 @@
+---
+title: "tidyvrese practice"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+height_file <- read_csv("height_data_clean.csv") # read in csv file
+y23m01d27 <- filter(height_file, survey_date == "2023-01-27") # date filtered
+y23m01d27 %>%
+  group_by(pop) %>% # want to compute height for each pop
+  summarize(avg_height = mean(height_cm), n=n()) %>% # avg_height is col name
+  arrange(desc(n)) %>%
+  write_csv("height_mean_by_pop.csv")
+```
+
