@@ -1,0 +1,38 @@
+---
+title = "ggplot practice"
+output = html_document
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+# read in csv file
+height_file <- read_csv("height_data_clean.csv")
+# convert dates to actual dates
+height_file <- height_file %>%
+  mutate(`survey_date` = as.Date(`survey_date`, format = "%Y-%m-%d"))
+# create average height tibble by dates and pop
+height_file_avg <- height_file %>%
+  group_by(`survey_date`, pop) %>%
+  summarise(`avg_height` = mean(`height_cm`, na.rm = TRUE), .groups = "drop")
+# ggplot height against dates of each pop
+ggplot(height_file_avg, aes(x = `survey_date`, y = `avg_height`, color = pop)) +
+  geom_line() +
+  labs(x = "Survey Date", y = "Average Height (cm)", color = "Population") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+# Subset 2023-01-27
+y23m01d27 <- height_file_avg %>%
+  filter(`survey_date` == as.Date("2023-01-27"))
+# Box-plot of average height against each pop
+ggplot(y23m01d27, aes(x = pop, y = `avg_height`)) +
+  geom_boxplot() +
+  labs(x = "Population", y = "Average Height (cm)") +
+  theme_minimal()
+```
