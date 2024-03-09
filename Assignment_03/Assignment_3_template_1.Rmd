@@ -1,0 +1,56 @@
+---
+title: "Assignment 3 template 1"
+output: html_document
+---
+
+```{r}
+numbers <- 2000:20000
+sum(numbers)
+```
+
+```{r}
+a <- 5 # assign value 5 to a
+b <- 2:20 # assign sequence 2 to 20 to b
+a # print content in a
+b # print content in b
+```
+
+```{r}
+d <- "I just want to be deleted"
+d
+ls() # include the parentheses for a function even if no arguments are needed
+rm(d)
+ls()
+# d 
+# generates an error because we removed it
+```
+
+```{r}
+sum(a, b)
+a + b
+# the results are different
+# using sum() function, all numbers are summed up
+# using + sign, a is added to each element in b, which is a sequence
+```
+```{r}
+sum(b[5:10])
+sum(b[c(3,8,10)])
+```
+
+```{r}
+m <- matrix(data=1:25, ncol=5, byrow=T)
+m
+m[5,5]
+# in the brackets, the first number is row and second number is column
+m[3,] # extracts the third row of matrix m
+m[,3:5] # extract the 3rd, 4th and 5th columns of matrix m as one object
+cbind(m,101:105) # column binds 101 to 105 to matrix m
+# rbind() is row bind
+n <- rbind(26:30,m)
+n
+# reverse rows in matrix m
+reversed_m <- m[nrow(m):1,]
+reversed_n <- rbind(26:30,reversed_m)
+reversed_n
+```
+
